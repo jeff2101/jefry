@@ -89,4 +89,10 @@ class FlashSaleController extends Controller
         $flashSale->delete(); // Menghapus flash sale yang ada
         return redirect()->route('admin.flashsales')->with('success', 'Flash Sale berhasil dihapus');
     }
+    public function show($id)
+    {
+        $flashsale = FlashSale::with('product')->findOrFail($id);
+        return view('pages.admin.flashsales.detail', compact('flashsale'));
+    }
+
 }

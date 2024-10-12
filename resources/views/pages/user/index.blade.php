@@ -29,54 +29,6 @@
 </section>
 <!-- End banner Area -->
 
-<!-- start product Area -->
-<section class="section_gap">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h1>Latest Products</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @forelse ($products as $item)
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-product">
-                        <img class="img-fluid" src="{{ asset('images/' . $item->image) }}" alt="">
-                        <div class="product-details">
-                            <h6>{{ $item->name }}</h6>
-                            <div class="price">
-                                <h6>Harga: {{ $item->price }} Points</h6>
-                            </div>
-                            <div class="prd-bottom">
-                                <a class="social-info" href="javascript:void(0);"
-                                    onclick="confirmPurchase('{{ $item->id }}', '{{ Auth::user()->id }}')">
-                                    <span class="ti-bag"></span>
-                                    <p class="hover-text">Beli</p>
-                                </a>
-                                <a href="{{ route('user.detail.product', $item->id) }}" class="social-info">
-                                    <span class="lnr lnr-move"></span>
-                                    <p class="hover-text">Detail</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-lg-12 col-md-12">
-                    <div class="single-product">
-                        <h3 class="text-center">Tidak ada produk</h3>
-                    </div>
-                </div>
-            @endforelse
-        </div>
-    </div>
-</section>
-<!-- end product Area -->
-
 <!-- start flash sale Area -->
 <section class="section_gap">
     <div class="container">
@@ -124,6 +76,54 @@
     </div>
 </section>
 <!-- end flash sale Area -->
+
+<!-- start product Area -->
+<section class="section_gap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h1>Latest Products</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @forelse ($products as $item)
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-product">
+                        <img class="img-fluid" src="{{ asset('images/' . $item->image) }}" alt="">
+                        <div class="product-details">
+                            <h6>{{ $item->name }}</h6>
+                            <div class="price">
+                                <h6>Harga: {{ $item->price }} Points</h6>
+                            </div>
+                            <div class="prd-bottom">
+                                <a class="social-info" href="javascript:void(0);"
+                                    onclick="confirmPurchase('{{ $item->id }}', '{{ Auth::user()->id }}')">
+                                    <span class="ti-bag"></span>
+                                    <p class="hover-text">Beli</p>
+                                </a>
+                                <a href="{{ route('user.detail.product', $item->id) }}" class="social-info">
+                                    <span class="lnr lnr-move"></span>
+                                    <p class="hover-text">Detail</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-lg-12 col-md-12">
+                    <div class="single-product">
+                        <h3 class="text-center">Tidak ada produk</h3>
+                    </div>
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
+<!-- end product Area -->
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

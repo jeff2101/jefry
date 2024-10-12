@@ -44,6 +44,8 @@
                                 <td>{{ $distributor->created_at->format('d-m-Y H:i') }}</td>
                                 <td>{{ $distributor->updated_at->format('d-m-Y H:i') }}</td>
                                 <td>
+                                    <a href="{{ route('admin.distributor.show', $distributor->id) }}"
+                                        class="badge badge-info">Detail</a>
                                     <a href="{{ route('admin.distributor.edit', $distributor->id) }}"
                                         class="badge badge-warning">Edit</a>
                                     <a href="#" class="badge badge-danger"

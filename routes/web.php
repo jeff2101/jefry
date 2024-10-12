@@ -34,8 +34,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
     });
 
-    // Product Route
-
+    // Distributor Route
 
     Route::prefix('admin/distributor')->group(function () {
         Route::get('/', [DistributorController::class, 'index'])->name('admin.distributor'); // Pastikan nama rutenya admin.distributor
@@ -44,6 +43,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/edit/{id}', [DistributorController::class, 'edit'])->name('admin.distributor.edit');
         Route::put('/update/{id}', [DistributorController::class, 'update'])->name('admin.distributor.update');
         Route::delete('/delete/{id}', [DistributorController::class, 'destroy'])->name('admin.distributor.destroy');
+        Route::get('/admin/distributor/{id}', [DistributorController::class, 'show'])->name('admin.distributor.show');
+
     });
 
 
@@ -56,6 +57,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/edit/{id}', [FlashSaleController::class, 'edit'])->name('flashsales.edit');
         Route::put('/update/{id}', [FlashSaleController::class, 'update'])->name('flashsales.update');
         Route::delete('/delete/{id}', [FlashSaleController::class, 'destroy'])->name('flashsales.delete');
+        Route::get('/admin/flashsales/{id}', [FlashSaleController::class, 'show'])->name('admin.flashsales.show');
+
     });
 
     Route::get('/admin-logout', [AuthController::class, 'admin_logout'])->name('admin.logout');

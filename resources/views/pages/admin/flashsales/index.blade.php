@@ -37,6 +37,8 @@
                                 <td>{{ \Carbon\Carbon::parse($item->end_time)->format('Y-m-d H:i:s') }}</td>
                                 <td>
                                     <a href="{{ route('flashsales.edit', $item->id) }}" class="badge badge-warning">Edit</a>
+                                    <a href="{{ route('admin.flashsales.show', $item->id) }}"
+                                        class="badge badge-info">Detail</a>
                                     <form action="{{ route('flashsales.delete', $item->id) }}" method="post"
                                         style="display: inline-block">
                                         @csrf
