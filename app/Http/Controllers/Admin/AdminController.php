@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Distributor;
+use App\Models\FlashSale;
 class AdminController extends Controller
 {
     public function dashboard()
@@ -14,7 +15,8 @@ class AdminController extends Controller
         $products = Product::count();
         $users = User::count();
         $distributors = Distributor::count();
+        $flashSales = FlashSale::count();
 
-        return view('pages.admin.index', compact('products', 'users', 'distributors'));
+        return view('pages.admin.index', compact('products', 'users', 'distributors', 'flashSales'));
     }
 }
