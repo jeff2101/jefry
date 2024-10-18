@@ -17,6 +17,6 @@ class AdminController extends Controller
         $distributors = Distributor::count();
         $flashSales = FlashSale::count();
 
-        return view('pages.admin.index', compact('products', 'users', 'distributors', 'flashSales'));
+        return view('pages.admin.index', compact('products', 'users', 'distributors', 'flashSales', 'users'));
     }
 }

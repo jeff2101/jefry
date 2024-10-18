@@ -28,6 +28,11 @@
                     <span>Flash Sale</span>
                 </a>
             </li>
+            <li class="{{ Route::is('admin.user') ? 'active' : ''}}">
+                <a class="nav-link" href="{{ route('admin.user') }}"><i class="fas fa-box"></i>
+                    <span>User</span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

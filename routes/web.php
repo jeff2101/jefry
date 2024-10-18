@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DistributorController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\UserController as UserUSerController;
 use App\Http\Controllers\Admin\FlashSaleController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+
 
 
 // Guest Route
@@ -48,7 +50,6 @@ Route::group(['middleware' => 'admin'], function () {
     });
 
 
-
     // Flash Sale Route
     Route::prefix('flashsales')->group(function () {
         Route::get('/', [FlashSaleController::class, 'index'])->name('admin.flashsales');
@@ -60,20 +61,32 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/admin/flashsales/{id}', [FlashSaleController::class, 'show'])->name('admin.flashsales.show');
 
     });
+    // User Route
+    Route::prefix('admin/user')->group(function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('admin.user');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('user.create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('user.store');
+        Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('user.edit');
+        Route::put('/update/{id}', [AdminUserController::class, 'update'])->name('user.update');
+        Route::delete('/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::get('/admin/flashsales/{id}', [AdminUserController::class, 'show'])->name('admin.user.show');
+    });
+
+
 
     Route::get('/admin-logout', [AuthController::class, 'admin_logout'])->name('admin.logout');
 });
 
 // User Route
 Route::group(['middleware' => 'web'], function () {
-    Route::get('/user', [UserController::class, 'index'])->name('user.dashboard');
+    Route::get('/user', [UserUserController::class, 'index'])->name('user.dashboard');
     Route::get('/user-logout', [AuthController::class, 'user_logout'])->name('user.logout');
 
     // Route untuk produk
-    Route::get('/user/product/detail/{id}', [UserController::class, 'detail_product'])->name('user.detail.product');
-    Route::get('/product/purchase/{productId}/{userId}', [UserController::class, 'purchase'])->name('user.product.purchase'); // Beri nama untuk route pembelian
+    Route::get('/user/product/detail/{id}', [UserUserController::class, 'detail_product'])->name('user.detail.product');
+    Route::get('/product/purchase/{productId}/{userId}', [UserUserController::class, 'purchase'])->name('user.product.purchase'); // Beri nama untuk route pembelian
 
     // Route untuk flash sale
-    Route::get('/user/flashsales', [UserController::class, 'flashsales'])->name('user.flashsales'); // Route untuk menampilkan flash sales
-    Route::get('/flashsale/purchase/{flashSaleId}/{userId}', [UserController::class, 'purchaseFlashSale'])->name('user.flashsale.purchase'); // Route untuk pembelian flash sale
+    Route::get('/user/flashsales', [UserUserController::class, 'flashsales'])->name('user.flashsales'); // Route untuk menampilkan flash sales
+    Route::get('/flashsale/purchase/{flashSaleId}/{userId}', [UserUserController::class, 'purchaseFlashSale'])->name('user.flashsale.purchase'); // Route untuk pembelian flash sale
 });
