@@ -71,6 +71,17 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
         Route::get('/admin/flashsales/{id}', [AdminUserController::class, 'show'])->name('admin.user.show');
     });
+    
+    // Admin Route
+    Route::prefix('admin/admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.admin');
+        Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('/update/{id}', [AdminController::class, 'update'])->name('admin.update');
+        Route::delete('/delete/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
+        Route::get('/admin/flashsales/{id}', [AdminController::class, 'show'])->name('admin.admin.show');
+    });
 
 
 
