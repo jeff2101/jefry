@@ -40,6 +40,8 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::prefix('admin/distributor')->group(function () {
         Route::get('/', [DistributorController::class, 'index'])->name('admin.distributor'); // Pastikan nama rutenya admin.distributor
+        Route::post('/distributor/import', [DistributorController::class, 'import'])->name('distributor.import');
+        Route::get('/distributor/export', [DistributorController::class, 'export'])->name('distributor.export');
         Route::get('/create', [DistributorController::class, 'create'])->name('admin.distributor.create');
         Route::post('/store', [DistributorController::class, 'store'])->name('admin.distributor.store');
         Route::get('/edit/{id}', [DistributorController::class, 'edit'])->name('admin.distributor.edit');
@@ -71,7 +73,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
         Route::get('/admin/flashsales/{id}', [AdminUserController::class, 'show'])->name('admin.user.show');
     });
-    
+
     // Admin Route
     Route::prefix('admin/admin')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.admin');

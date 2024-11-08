@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Distributor;
+use App\Imports\DistributorImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DistributorController extends Controller
 {
@@ -73,6 +77,36 @@ class DistributorController extends Controller
     {
         $distributor = Distributor::findOrFail($id);
         return view('pages.admin.distributor.detail', compact('distributor'));
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            $file = $request->file('file');
+            Excel::import(new DistributorImport, $file);
+
+            Alert::success('Berhasil!', 'Data berhasil di import!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $messages = '';
+            foreach ($failures as $failure) {
+                $messages .= 'Kesalahan pada baris ' . $failure->row() . ': ' . implode(', ', $failure->errors()) . '. ';
+            }
+            Alert::error('Gagal!', 'Validasi Gagal: ' . $messages);
+        } catch (\Exception $e) {
+            Alert::error('Gagal!', 'Pastikan format dan isi sudah benar! Error: ' . $e->getMessage());
+        } finally {
+            return redirect()->back();
+        }
+    }
+    public function export()
+    {
+        $distributors = Distributor::all();
+
+        $pdf = Pdf::loadView('pages.admin.distributor.export', compact('distributors'))
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->download('distributor.pdf');
     }
 
 }

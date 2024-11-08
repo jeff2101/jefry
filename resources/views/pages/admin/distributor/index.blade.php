@@ -12,10 +12,33 @@
                 <div class="breadcrumb-item">Distributor</div>
             </div>
         </div>
-
-        <a href="{{ route('admin.distributor.create') }}" class="btn btn-icon icon-left btn-primary">
-            <i class="fas fa-plus"></i> Tambah Distributor
-        </a>
+        <div class="row">
+            <div class="col-md-4 col-sm-3">
+                <a href="{{ route('admin.distributor.create') }}" class="btn btn-icon icon-left btn-primary">
+                    <i class="fas fa-plus"></i> Distributor
+                </a>
+                <a href="{{ route('distributor.export') }}" class="btn btn-icon icon-left btn-info">
+                    <i class="fas fa-print"></i> Export
+                </a>
+            </div>
+            <div class="col-md-8 col-sm-9">
+                <form action="{{ route('distributor.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="d-flex align-items-center">
+                        <div class="form-group mb-0 mr-2">
+                            <div class="custom-file">
+                                <input class="custom-file-input" name="file" id="customFile" type="file" required="">
+                                <label class="custom-file-label" for="customFile">
+                                    Pilih File Excel </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-icon icon-left btn-primary">
+                            <i class="fas fa-plus"></i> Import
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="card-body">
             <div class="table-responsive">
