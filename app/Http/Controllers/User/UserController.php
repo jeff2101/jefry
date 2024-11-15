@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\FlashSale; // Menambahkan model FlashSale
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -44,6 +46,12 @@ class UserController extends Controller
 
             // Update user points
             $user->update(['point' => $totalPoints]);
+
+            History::create([
+                'id_user' => $userId,
+                'id_product' => $productId,
+                'total_harga' => $product->price,
+            ]);
 
             Alert::success('Berhasil!', 'Produk berhasil dibeli!');
             return redirect()->back();
@@ -89,4 +97,15 @@ class UserController extends Controller
             return redirect()->back();
         }
     }
+
+    public function history($id)
+    {
+        $data = DB::table('histories')
+            ->join('products', 'products.id', '=', 'histories.id_product') // Perbaiki parameter join
+            ->where('histories.id_user', '=', $id) // Perbaiki parameter where
+            ->get();
+
+        return view('pages.user.history', compact('data'));
+    }
+
 }

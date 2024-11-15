@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DistributorController;
+use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\User\UserController as UserUSerController;
 use App\Http\Controllers\Admin\FlashSaleController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -84,7 +85,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/delete/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
         Route::get('/admin/flashsales/{id}', [AdminController::class, 'show'])->name('admin.admin.show');
     });
-
+    // Admin History
+    Route::prefix('admin/history')->group(function () {
+        Route::get('/history', [HistoryController::class, 'index'])->name('admin.history');
+        Route::get('/history/detail/{id}', [HistoryController::class, 'detail'])->name('history.detail');
+    });
 
 
     Route::get('/admin-logout', [AuthController::class, 'admin_logout'])->name('admin.logout');
@@ -94,6 +99,7 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'web'], function () {
     Route::get('/user', [UserUserController::class, 'index'])->name('user.dashboard');
     Route::get('/user-logout', [AuthController::class, 'user_logout'])->name('user.logout');
+    Route::get('/user/history/{id}', [UserUSerController::class, 'history'])->name('user_history');
 
     // Route untuk produk
     Route::get('/user/product/detail/{id}', [UserUserController::class, 'detail_product'])->name('user.detail.product');

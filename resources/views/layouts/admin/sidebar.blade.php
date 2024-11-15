@@ -38,6 +38,9 @@
                     <span>User</span>
                 </a>
             </li>
+            <li class="{{ Request::is('history*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ route('admin.history') }}"><i class="fas fa-book"></i> <span>Riwayat
+                        Pembelian</span></a></li>
         </ul>
     </aside>
 </div>
